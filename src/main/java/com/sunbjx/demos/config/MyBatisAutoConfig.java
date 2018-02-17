@@ -30,7 +30,7 @@ import com.github.pagehelper.PageHelper;
  * @author sunbjx Date: 2017年6月26日下午8:16:32
  */
 @Configuration
-@ComponentScan("com.sunbjx.demos.mapper")
+@ComponentScan("com.sunbjx.demos.dao")
 public class MyBatisAutoConfig {
 
 	@Configuration

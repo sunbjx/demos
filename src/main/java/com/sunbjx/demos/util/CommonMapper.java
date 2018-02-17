@@ -29,13 +29,13 @@ import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
  * 
- * @title MyMapper.java
+ * @title CommonMapper.java
  * @package com.sunbjx.plot.love.util
  * @description 继承自己的MyMapper
  * @author sunbjx
  * @update 2016年12月20日 下午8:37:14
  */
-public interface MyMapper<T> extends Mapper<T>, MySqlMapper<T> {
+public interface CommonMapper<T> extends Mapper<T>, MySqlMapper<T> {
 	// TODO
 	// FIXME 特别注意，该接口不能被扫描到，否则会出错
 }

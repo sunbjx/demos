@@ -1,6 +1,6 @@
 package com.sunbjx.demos.service;
 
-import com.sunbjx.demos.model.User;
+import com.sunbjx.demos.model.entity.UserEntity;
 
 /**
  * @Author: sunbjx
@@ -15,5 +15,5 @@ public interface UserService {
      * @param id
      * @return
      */
-    User getDetailsById(Integer id);
+    UserEntity getDetailsById(Integer id);
 }

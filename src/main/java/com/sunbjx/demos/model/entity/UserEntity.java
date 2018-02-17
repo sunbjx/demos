@@ -1,4 +1,4 @@
-package com.sunbjx.demos.model;
+package com.sunbjx.demos.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "user")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

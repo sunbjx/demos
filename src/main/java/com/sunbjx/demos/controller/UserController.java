@@ -1,8 +1,8 @@
 package com.sunbjx.demos.controller;
 
-import com.sunbjx.demos.context.Response;
-import com.sunbjx.demos.context.ResponseConstants;
-import com.sunbjx.demos.model.User;
+import com.sunbjx.demos.controller.support.Response;
+import com.sunbjx.demos.controller.support.Responses;
+import com.sunbjx.demos.model.entity.UserEntity;
 import com.sunbjx.demos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,17 +27,14 @@ public class UserController {
     @GetMapping("/details")
     @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
     @ApiOperation(value = "用户详情", notes = "用户详情查询")
-    public Response<User> details(@ApiParam(name = "id", value = "用户ID") @RequestParam Integer id) {
+    public Response details(@ApiParam(name = "id", value = "用户ID") @RequestParam Integer id) {
 
-        Response<User> result = null;
-        try {
-            User user = userService.getDetailsById(id);
-            result = new Response<User>(ResponseConstants.CODE_SUCCESS, ResponseConstants.CODE_SUCCESS_VALUE);
-            result.setResults(user);
-        } catch (Exception e) {
-            result = new Response<User>(ResponseConstants.CODE_SUCCESS, ResponseConstants.CODE_SUCCESS_VALUE);
+        UserEntity user = userService.getDetailsById(id);
+        if (null != user) {
+            return Responses.SUCCESS().setResults(user);
         }
-        return result;
+        return Responses.FAILED();
+
     }
 
 }

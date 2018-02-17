@@ -1,7 +1,7 @@
 package com.sunbjx.demos.service.impl;
 
-import com.sunbjx.demos.mapper.UserMapper;
-import com.sunbjx.demos.model.User;
+import com.sunbjx.demos.dao.UserDao;
+import com.sunbjx.demos.model.entity.UserEntity;
 import com.sunbjx.demos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Override
-    public User getDetailsById(Integer id) {
+    public UserEntity getDetailsById(Integer id) {
 
-        User user = userMapper.selectByPrimaryKey(id);
+        UserEntity user = userDao.selectByPrimaryKey(id);
 
         return user;
     }
