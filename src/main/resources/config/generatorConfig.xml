@@ -28,7 +28,7 @@
 		<sqlMapGenerator targetPackage="mapper"
 						 targetProject="/Users/sunbjx/Documents/IdeaProjects/demos/src/main/resources" />
 
-		<javaClientGenerator targetPackage="com.sunbjx.demos.dao"
+		<javaClientGenerator targetPackage="com.sunbjx.demos.modules.oa.dao"
 							 targetProject="/Users/sunbjx/Documents/IdeaProjects/demos/src/main/java"
 							 type="XMLMAPPER" />
 

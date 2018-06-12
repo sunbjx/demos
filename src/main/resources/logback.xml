@@ -45,8 +45,8 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.sunbjx.demos.config.ApiLog" level="INFO"
-		additivity="false">
+	<logger name="com.sunbjx.demos.framework.autoconfig.ApiLog" level="INFO"
+			additivity="false">
 		<appender-ref ref="api" />
 	</logger>
 	<logger name="jdbc.connection" additivity="false" level="FATAL">
