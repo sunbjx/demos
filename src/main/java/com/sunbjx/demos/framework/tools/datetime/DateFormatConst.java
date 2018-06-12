@@ -1,10 +1,10 @@
-package com.sunbjx.demos.framework.core.mvc.utils;
+package com.sunbjx.demos.framework.tools.datetime;
 
 /**
  * @author sunbjx
  * @since 2018/6/11 14:25
  */
-public interface DateFormats {
+public interface DateFormatConst {
 
     String DATE_FORMAT = "yyyy-MM-dd";
 

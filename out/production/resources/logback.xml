@@ -1,88 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <property name="APP_NAME" value="demos"/>
+    <property name="log_dir" value="\${user.home}/logs/demos"/>
+    <contextName>${APP_NAME}</contextName>
 
-	<property name="LOG_DIR" value="logs" />
+    <!-- 输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d [%thread] %level %logger[%line] %msg - [ %X{method} uri:%X{requestURIWithQueryString}]
+                [remoteAddr:%X{remoteAddr}]%n
+            </Pattern>
+        </encoder>
+    </appender>
 
-	<!-- 输出到控制台 -->
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%5level] %logger{36}
-				[%file:%line] - %msg%n
-			</Pattern>
-		</encoder>
-	</appender>
+    <!-- 输出到文件 -->
+    <appender name="FILE_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${APP_NAME}.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/${APP_NAME}.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d [%thread] %level %logger[%line] %msg - [ %X{method} uri:%X{requestURIWithQueryString}]
+                [remoteAddr:%X{remoteAddr}]%n
+            </Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
-	<!-- 输出到文件 -->
-	<appender name="file"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/demos.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/xxx.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
-		</rollingPolicy>
-		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} -
-				%msg%n
-			</pattern>
-		</layout>
-	</appender>
+    <appender name="ERROR_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${APP_NAME}-ERROR.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/${APP_NAME}-ERROR.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d [%thread] %level %logger[%line] %msg - [ %X{method} uri:%X{requestURIWithQueryString}]
+                [remoteAddr:%X{remoteAddr}]%n
+            </Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
-	<appender name="api"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/api/api.log</file>
-		<append>true</append>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/api.%d{yyyy-MM-dd}.%i.txt
-			</fileNamePattern>
-			<maxHistory>30</maxHistory>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>50MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%msg%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-	</appender>
+    <appender name="sql" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${APP_NAME}-sql.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_dir}/${APP_NAME}-sql.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d [%thread] %level %logger[%line] %msg - [ %X{method} uri:%X{requestURIWithQueryString}]
+                [remoteAddr:%X{remoteAddr}]%n
+            </Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
-	<logger name="com.sunbjx.demos.framework.autoconfig.ApiLog" level="INFO"
-			additivity="false">
-		<appender-ref ref="api" />
-	</logger>
-	<logger name="jdbc.connection" additivity="false" level="FATAL">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</logger>
-	<logger name="jdbc.resultset" additivity="false" level="OFF">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</logger>
-	<logger name="jdbc.audit" additivity="false" level="OFF">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</logger>
-	<logger name="jdbc.sqlonly" additivity="false" level="DEBUG">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</logger>
-	<logger name="jdbc.sqltiming" additivity="false" level="DEBUG">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</logger>
+    <root>
+        <level value="info"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_ROLLING"/>
+        <appender-ref ref="ERROR_ROLLING"/>
+    </root>
 
+    <logger name="com.sunbjx.demos">
+        <level value="debug"/>
+    </logger>
 
-	<!--&lt;!&ndash; sql语句打印 &ndash;&gt; -->
-	<logger name="jdbc.sqltiming" level="debug" />
-	<logger name="java.sql.Connection" level="debug" />
-	<logger name="java.sql.Statement" level="debug" />
-	<logger name="java.sql.PreparedStatement" level="debug" />
-	<logger name="java.sql.ResultSet" level="debug" />
-	<!--<logger name="org.activiti.engine.impl.persistence.entity"-->
-		<!--level="DEBUG" />-->
+    <logger name="mybatislog">
+        <level value="info"/>
+        <appender-ref ref="sql"/>
+    </logger>
 
-	<root level="debug">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="file" />
-	</root>
+    <logger name="druid">
+        <level value="debug"/>
+        <appender-ref ref="sql"/>
+    </logger>
+
+    <logger name="org.apache.ibatis">
+        <level value="info"/>
+        <appender-ref ref="sql"/>
+    </logger>
+
+    <logger name="org.apache.http">
+        <level value="info"/>
+    </logger>
+    <logger name="jdbc.connection">
+        <level value="warn"></level>
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="info"/>
+    </logger>
+
+    <logger name="org.apache.http" additivity="false">
+        <level value="warn"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
 
 </configuration>

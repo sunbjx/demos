@@ -4,10 +4,10 @@ import java.security.MessageDigest;
 import java.util.UUID;
 
 /**
+ * 加密
+ *
  * @author sunbjx
- * @title CipherUtil.java
- * @description 加密
- * @update 2015年8月19日 下午2:19:11
+ * @since 2015年8月19日 下午2:19:11
  */
 public class CipherUtil {
 
